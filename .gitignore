@@ -1,0 +1,7 @@
+.cache
+.config
+files/
+.profile
+.bashrc
+.bash_logout
+.DS_Store

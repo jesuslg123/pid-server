@@ -161,9 +161,12 @@ async def result(request):
 
 
 async def download(request):
+    print(request.rel_url.query)
     job_id = str(request.rel_url.query.get('id'))
     path = _path_by_job_id(job_id)
+    print(path)
     if not path:
+        print('not found')
         return web.Response(status=404)
 
     file = str(request.rel_url.query.get('file'))
