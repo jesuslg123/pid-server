@@ -6,6 +6,7 @@
 # this stuff is worth it, you can buy me a beer in return. Florian Melsheimer
 # ----------------------------------------------------------------------------------
 
+import resource
 import argparse
 import sys
 import time
@@ -17,6 +18,21 @@ from pidanalyzer.common import *
 from pidanalyzer import common, loaders, BANNER
 from pidanalyzer.plotting import show_plots
 
+
+def memory_limit():
+    """Limit max memory usage to half."""
+    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
+    # Convert KiB to bytes, and divide in two to half
+    resource.setrlimit(resource.RLIMIT_AS, (get_memory() * 1024 / 2, hard))
+
+def get_memory():
+    with open('/proc/meminfo', 'r') as mem:
+        free_memory = 0
+        for i in mem:
+            sline = i.split()
+            if str(sline[0]) in ('MemFree:', 'Buffers:', 'Cached:'):
+                free_memory += int(sline[1])
+    return free_memory  # KiB
 
 def analyze_file(path: str, plot_name: str, hide: bool, noise_bounds: list = DEFAULT_NOISE_BOUNDS):
     tmp_path = os.path.join(os.path.dirname(path), plot_name)
@@ -101,6 +117,7 @@ def main(args) -> int:
 
 
 if __name__ == "__main__":
+    memory_limit_half()
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(action='append', dest='log_paths', metavar="LOG_PATHS",
                         help='log file(s) to analyze or omit for interactive prompt')
