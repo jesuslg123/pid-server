@@ -118,7 +118,6 @@ def main(args) -> int:
 
 
 if __name__ == "__main__":
-    memory_limit()
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument(action='append', dest='log_paths', metavar="LOG_PATHS",
                         help='log file(s) to analyze or omit for interactive prompt')
