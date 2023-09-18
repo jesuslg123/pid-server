@@ -222,5 +222,5 @@ def create(path: str, name: str, header: dict, traces: List[Trace], lims: list) 
     ax5r.text(0, 0, filt_settings_r, ha='left', fontsize=TEXTSIZE)
 
     log.info('Saving as image...')
-    plt.savefig(path[:-13] + name + '_' + str(header['logNum']) + '_noise.png')
+    plt.savefig(path[:-13] + name + '_' + str(header['logNum']) + '_noise.png', dpi=0.1)
     return fig
