@@ -111,5 +111,5 @@ def create(path: str, name: str, header: dict, traces: List[Trace], old_style: b
     plt.text(0, 0, t, ha='left', va='center', rotation=90, color='grey', alpha=0.5, fontsize=TEXTSIZE)
     ax4.axis('off')
     log.info('Saving as image...')
-    plt.savefig(path[:-13] + name + '_' + str(header['logNum']) + '_response.png')
+    plt.savefig(path[:-13] + name + '_' + str(header['logNum']) + '_response.png', dpi=0.2)
     return fig
